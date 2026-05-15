@@ -1,0 +1,4 @@
+(fp_lib_table
+  (version 7)
+  (lib (name "FPGA_Interface_Board-backups")(type "KiCad")(uri "${KIPRJMOD}/FPGA_Interface_Board-backups.pretty")(options "")(descr ""))
+)
