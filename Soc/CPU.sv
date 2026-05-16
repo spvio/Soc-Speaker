@@ -1,4 +1,8 @@
 //KEY NOTES: using 1 bus for now..
+//3'b000: default
+//3'b001: PC
+//3'b010: MEM
+//3'b100: ALU
 module Control_Unit(input clk, input logic[31:0] IR, output reg_load, output logic[2:0] bus_select);
 
 always_ff @(posedge i_clk) begin : FSM
@@ -34,28 +38,19 @@ always_ff @(posedge i_clk) begin : FSM
         //(I-type)
         decode: begin 
             case(IR[6:0])
-                x13:begin  //(I-type)
-                STATE <= I_type; 
+                x13:begin  //(I-type/ALU)
+                alu_I_R     <= 1'b1;
+                bus_select  <= 3'b100;
+                STATE       <= x13;  
                 end;
 
             endcase
 
         end
 
-
-
-
-
-        I_type: begin 
-            case(IR[14:12])
-                3'b000: STATE <= ADDI; 
-                3'b010: STATE <= STLI; 
-                3'b011:
-                3'b100: STATE <= XORI; 
-                3'b110: STATE <= ORI;
-            endcase
-            alu_I_R <= 1'b1;     //intermediate
-
+        x13: begin 
+            dst_load <= 1'b1
+            STATE <= fetch; 
         end
 
 
